@@ -1,7 +1,7 @@
 {
 	"name": "srpo3",
 	"displayName": "srpo3",
-	"version": "0.0.2",
+	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.80.0"
 	},
@@ -16,10 +16,32 @@
 		"watch": "tsc -watch -p ./"
 	},
 	"contributes": {
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "srpo3-sidebar-view",
+					"title": "SRPO3",
+					"icon": "resources/icon2.png"
+				}
+			]
+		},
+		"views": {
+			"srpo3-sidebar-view": [
+				{
+					"id": "srpo3-container",
+					"name": "SRPO3",
+					"icon": "resources/icon2.png"
+				}
+			]
+		},
 		"commands": [
 			{
-				"command": "srpo3.helloWorld",
-				"title": "Hello World"
+				"command": "srpo3.loginCF",
+				"title": "CF : Авторизоваться (Логин/Пароль)"
+			},
+			{
+				"command": "srpo3.logoutCF",
+				"title": "CF : Выйти из аккаунта"
 			}
 		]
 	},
@@ -29,6 +51,12 @@
 	"devDependencies": {
 		"@types/node": "^22.20.2",
 		"@types/vscode": "^1.137.0",
+		"puppeteer": "^25.10.0",
 		"typescript": "^7.0.2"
+	},
+	"dependencies": {
+		"puppeteer-core": "^25.10.0",
+		"puppeteer-extra": "^3.3.6",
+		"puppeteer-extra-plugin-stealth": "^2.11.2"
 	}
 }

@@ -3,7 +3,7 @@ import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 
 import * as vscode from 'vscode';
 
-import { UserDataProvider } from './globals';
+import { UserDataProvider, StatusDataProvide } from './globals';
 import { monitorInfo } from './api';
 
 export function activate(context: vscode.ExtensionContext){
@@ -32,6 +32,7 @@ export function activate(context: vscode.ExtensionContext){
     });
 
     vscode.window.registerTreeDataProvider("cf-user", UserDataProvider);
+    vscode.window.registerTreeDataProvider("cf-try", StatusDataProvide);
 
     monitorInfo(secrets, 5000);
 

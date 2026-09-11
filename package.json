@@ -31,6 +31,16 @@
 					"id": "cf-user",
 					"name": "CF Account",
 					"icon": "resources/icon2.png"
+				},
+				{
+					"id": "cf-try",
+					"name": "CF last tries",
+					"icon": "resources/icon2.png"
+				},
+				{
+					"id": "cf-contest",
+					"name": "CF last tries",
+					"icon": "resources/icon2.png"
 				}
 			]
 		},

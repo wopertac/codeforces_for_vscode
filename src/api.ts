@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { UserDataProvider } from './globals'
+import { UserDataProvider, StatusDataProvide } from './globals'
 import * as vscode from "vscode"
 
 interface CFRes<T> {
@@ -14,6 +14,19 @@ interface CFUser {
     rank: string
 }
 
+interface CFProblem {
+    contestId: number,
+    index: string,
+    rating: number
+}
+
+interface CFStatus {
+    id: number,
+    problem: CFProblem,
+    verdict: string,
+    passedTestCount: number
+}
+
 async function fetchCodeforcesUser(handle: string): Promise<CFUser | null>{
     const url = `https://codeforces.com/api/user.info?handles=${handle}`
 
@@ -23,13 +36,29 @@ async function fetchCodeforcesUser(handle: string): Promise<CFUser | null>{
         if (res.data.status === "OK" && res.data.result.length > 0){
             return res.data.result[0]
         }else{
-            console.error(`${res.data.comment}`);
             return null;
         }
     }catch(error: any){
-        console.error(`${error.message}`);
         return null;
     }
+}
+
+async function fetchCodeforcesStatus(handle: string): Promise<CFStatus[] | null> {
+    const url = `https://codeforces.com/api/user.status?handle=${handle}&from=1&count=10`
+
+    try{
+        const res = await axios.get<CFRes<CFStatus[]>>(url);
+
+        if (res.data.status === "OK"){
+            return res.data.result;
+        }else{
+            return null;
+        }
+
+    }catch{
+        return null;
+    }
+
 }
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
@@ -45,7 +74,9 @@ export async function monitorInfo(secrets: vscode.SecretStorage, intervalMs: num
 
             continue;
         }
+
         const userData = await fetchCodeforcesUser(handle);
+        const userStatus = await fetchCodeforcesStatus(handle);
 
         if (userData){
 
@@ -56,6 +87,14 @@ export async function monitorInfo(secrets: vscode.SecretStorage, intervalMs: num
             UserDataProvider.updateItem(0, "wrong handler");
             UserDataProvider.updateItem(1, "");
             UserDataProvider.updateItem(2, "");
+        }
+
+        if (userStatus){
+            for (let i = 0; i < userStatus.length; i++){
+                StatusDataProvide.updateTask(i, userStatus[i].id, userStatus[i].verdict, userStatus[i].passedTestCount, userStatus[i].problem.contestId, userStatus[i].problem.index);
+                StatusDataProvide.updateLabel(i, 0, `id : ${userStatus[i].id}`)
+                StatusDataProvide.updateLabel(i, 1, `passed tests : ${userStatus[i].passedTestCount}`)
+            }
         }
 
         await delay(intervalMs);

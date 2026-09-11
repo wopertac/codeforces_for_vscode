@@ -1,6 +1,6 @@
 import * as vscode from "vscode"
 
-export class Info extends vscode.TreeItem {
+class Info extends vscode.TreeItem {
     constructor(
         public name: string,
         public info: string,
@@ -26,9 +26,9 @@ export class User implements vscode.TreeDataProvider<Info> {
 
     constructor(){
         this.data = [
-            new Info("Handle", "", vscode.TreeItemCollapsibleState.None, []),
-            new Info("Rating", "", vscode.TreeItemCollapsibleState.None, []),
-            new Info("rank", "", vscode.TreeItemCollapsibleState.None, []),
+            new Info("Handle", "loading", vscode.TreeItemCollapsibleState.None, []),
+            new Info("Rating", "loading", vscode.TreeItemCollapsibleState.None, []),
+            new Info("rank", "loading", vscode.TreeItemCollapsibleState.None, []),
         ]
     }
 

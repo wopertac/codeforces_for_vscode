@@ -1,7 +1,7 @@
 {
 	"name": "srpo3",
 	"displayName": "srpo3",
-	"version": "0.0.1",
+	"version": "0.1.1",
 	"engines": {
 		"vscode": "^1.80.0"
 	},
@@ -20,7 +20,7 @@
 			"activitybar": [
 				{
 					"id": "srpo3-sidebar-view",
-					"title": "SRPO3",
+					"title": "Codeforces",
 					"icon": "resources/icon2.png"
 				}
 			]
@@ -28,8 +28,8 @@
 		"views": {
 			"srpo3-sidebar-view": [
 				{
-					"id": "srpo3-container",
-					"name": "SRPO3",
+					"id": "cf-user",
+					"name": "CF Account",
 					"icon": "resources/icon2.png"
 				}
 			]
@@ -55,6 +55,7 @@
 		"typescript": "^7.0.2"
 	},
 	"dependencies": {
+		"axios": "^1.20.0",
 		"puppeteer-core": "^25.10.0",
 		"puppeteer-extra": "^3.3.6",
 		"puppeteer-extra-plugin-stealth": "^2.11.2"

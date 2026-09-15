@@ -65,7 +65,7 @@ export class Contest implements vscode.TreeDataProvider<Problem> {
         if (this.data[idx]){
             this.data[idx].updateVerdict(newVerdict);
 
-            this._onDidChangeTreeData.fire(undefined);
+            this._onDidChangeTreeData.fire(this.data[idx]);
         }
     }
 
@@ -73,7 +73,7 @@ export class Contest implements vscode.TreeDataProvider<Problem> {
         if (this.data[idx]){
             this.data[idx].updateProblem(contestId, problemId, name);
 
-            this._onDidChangeTreeData.fire(undefined);
+            this._onDidChangeTreeData.fire(this.data[idx]);
         }
     }
 
@@ -81,11 +81,16 @@ export class Contest implements vscode.TreeDataProvider<Problem> {
         if (this.data[idx]){
             this.data[idx].updateLabel(label);
 
-            this._onDidChangeTreeData.fire(undefined);
+            this._onDidChangeTreeData.fire(this.data[idx]);
         }
     }
 
     setNumOfProblems(num: number){
+
+        if (this.data.length == num){
+            return;
+        }
+
         for(let i = this.data.length; i < num; i++){
             this.data.push(
                 new Problem("", 0, "", "-", "", vscode.TreeItemCollapsibleState.None, [])

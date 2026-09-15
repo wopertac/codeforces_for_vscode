@@ -26,7 +26,7 @@ export async function activate(context: vscode.ExtensionContext){
 
     setInterval(() => {
         monitorInfo(secrets);
-    }, 1000);
+    }, 2000);
 }
 
 export async function deactivate() {}

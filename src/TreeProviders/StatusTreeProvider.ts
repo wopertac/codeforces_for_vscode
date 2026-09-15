@@ -73,7 +73,7 @@ export class Status implements vscode.TreeDataProvider<Task>{
         if (this.data[idx].children && this.data[idx].children[idxC]){
             this.data[idx].children[idxC].updateLabel(newLabel);
 
-            this._onDidChangeTreeData.fire(undefined);
+            this._onDidChangeTreeData.fire(this.data[idx]);
         }
     }
 
@@ -81,11 +81,14 @@ export class Status implements vscode.TreeDataProvider<Task>{
         if (this.data[idx]){
             this.data[idx].updateInfo(solveNumber, status, testPassed, contestId, taskId);
 
-            this._onDidChangeTreeData.fire(undefined);
+            this._onDidChangeTreeData.fire(this.data[idx]);
         }
     }
 
     setNumOfTrasks(num: number){
+        if (this.data.length == num){
+            return;
+        }
         for (let i = this.data.length; i < num; i++){
             this.data.push(
                 new Task("", 0, "", 0, 0, "", vscode.TreeItemCollapsibleState.None, [

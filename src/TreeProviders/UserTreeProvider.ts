@@ -52,7 +52,7 @@ export class User implements vscode.TreeDataProvider<Info> {
         if (this.data[idx]){
             this.data[idx].updateInfo(newInfo);
 
-            this._onDidChangeTreeData.fire(undefined);
+            this._onDidChangeTreeData.fire(this.data[idx]);
         }
     }
 }

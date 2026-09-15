@@ -74,6 +74,7 @@ export async function monitorInfo(secrets: vscode.SecretStorage) {
     if (!handle){
         UserDataProvider.setNumberOfItem(0);
         StatusDataProvider.setNumOfTrasks(0);
+        ContestTreeProvider.setNumOfProblems(0);
         return;
     }
 

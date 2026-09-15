@@ -11,14 +11,11 @@ export function registerCommands(secrets: vscode.SecretStorage){
             }
 
             await secrets.store("cf_handle", handle);
-
-            vscode.window.showInformationMessage("Информация о хендле изменена");
         }
     );
 
     vscode.commands.registerCommand("srpo3.logoutCF", async () => {
         await secrets.delete("cf_handle");
-        vscode.window.showInformationMessage("Информация о хендле удалена");
     });
 
     vscode.commands.registerCommand("srpo3.contestCF", async () => {

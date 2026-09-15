@@ -1,6 +1,3 @@
-import puppeteer from 'puppeteer-extra';
-import StealthPlugin from 'puppeteer-extra-plugin-stealth';
-
 import * as vscode from 'vscode';
 
 import { registerCommands } from './commands';
@@ -24,9 +21,7 @@ export async function activate(context: vscode.ExtensionContext){
         selectContest(+contest);
     }
 
-    setInterval(() => {
-        monitorInfo(secrets);
-    }, 1000);
+    setInterval(() => {monitorInfo(secrets)}, 1000);
 }
 
 export async function deactivate() {}

@@ -85,7 +85,7 @@ export class Status implements vscode.TreeDataProvider<Task>{
         }
     }
 
-    createTask(num: number){
+    setNumOfTrasks(num: number){
         for (let i = this.data.length; i < num; i++){
             this.data.push(
                 new Task("", 0, "", 0, 0, "", vscode.TreeItemCollapsibleState.None, [
@@ -94,5 +94,9 @@ export class Status implements vscode.TreeDataProvider<Task>{
                 ])
             )
         }
+        for(let i = this.data.length; i > num; i--){
+            this.data.pop();
+        }
+        this._onDidChangeTreeData.fire(undefined);
     }
 }

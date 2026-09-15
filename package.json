@@ -1,7 +1,7 @@
 {
 	"name": "srpo3",
 	"displayName": "srpo3",
-	"version": "0.1.1",
+	"version": "0.2.0",
 	"engines": {
 		"vscode": "^1.80.0"
 	},
@@ -39,7 +39,7 @@
 				},
 				{
 					"id": "cf-contest",
-					"name": "CF last tries",
+					"name": "CF competition",
 					"icon": "resources/icon2.png"
 				}
 			]
@@ -52,6 +52,10 @@
 			{
 				"command": "srpo3.logoutCF",
 				"title": "CF : Выйти из аккаунта"
+			},
+			{
+				"command": "srpo3.contestCF",
+				"title": "CF : Выбрать контест"
 			}
 		]
 	},

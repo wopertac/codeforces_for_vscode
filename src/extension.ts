@@ -24,7 +24,9 @@ export async function activate(context: vscode.ExtensionContext){
         selectContest(+contest);
     }
 
-    monitorInfo(secrets, 1000);
+    setInterval(() => {
+        monitorInfo(secrets);
+    }, 1000);
 }
 
 export async function deactivate() {}

@@ -54,7 +54,14 @@ export class Contest implements vscode.TreeDataProvider<Problem> {
         }
     }
 
-    updateVerdict(idx: number, newVerdict: string){
+    updateVerdict(task: string, newVerdict: string){
+
+        let idx = 0;
+
+        while (idx < this.data.length && this.data[idx].problemId != task) idx ++;
+
+        if (idx >= this.data.length) return;
+
         if (this.data[idx]){
             this.data[idx].updateVerdict(newVerdict);
 

@@ -1,7 +1,7 @@
 {
-	"name": "srpo3",
-	"displayName": "srpo3",
-	"version": "0.3.0",
+	"name": "codefroces_for_vscode",
+	"displayName": "Codeforces for vscode",
+	"version": "0.3.1",
 	"engines": {
 		"vscode": "^1.80.0"
 	},
@@ -21,7 +21,7 @@
 				{
 					"id": "srpo3-sidebar-view",
 					"title": "Codeforces",
-					"icon": "resources/icon2.png"
+					"icon": "resources/codeforces.svg"
 				}
 			]
 		},
@@ -30,17 +30,17 @@
 				{
 					"id": "cf-user",
 					"name": "CF Account",
-					"icon": "resources/icon2.png"
+					"icon": "resources/codeforces.svg"
 				},
 				{
 					"id": "cf-try",
 					"name": "CF last tries",
-					"icon": "resources/icon2.png"
+					"icon": "resources/codeforces.svg"
 				},
 				{
 					"id": "cf-contest",
 					"name": "CF competition",
-					"icon": "resources/icon2.png"
+					"icon": "resources/codeforces.svg"
 				}
 			]
 		},

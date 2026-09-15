@@ -10,12 +10,12 @@ class Info extends vscode.TreeItem {
         super(`${name} : ${info}`, collapsibleState);
     }
 
-    public updateInfo(newInfo: string){
+    public updateInfo(name: string, newInfo: string){
         this.info = newInfo;
+        this.name = name;
 
         this.label = `${this.name} : ${this.info}`;
     }
-
 }
 
 export class User implements vscode.TreeDataProvider<Info> {
@@ -26,9 +26,6 @@ export class User implements vscode.TreeDataProvider<Info> {
 
     constructor(){
         this.data = [
-            new Info("Handle", "loading", vscode.TreeItemCollapsibleState.None, []),
-            new Info("Rating", "loading", vscode.TreeItemCollapsibleState.None, []),
-            new Info("rank", "loading", vscode.TreeItemCollapsibleState.None, []),
         ]
     }
 
@@ -48,11 +45,31 @@ export class User implements vscode.TreeDataProvider<Info> {
         }
     }
 
-    updateItem(idx: number, newInfo: string){
+    updateItem(idx: number, name: string, newInfo: string){
         if (this.data[idx]){
-            this.data[idx].updateInfo(newInfo);
+            this.data[idx].updateInfo(name, newInfo);
 
             this._onDidChangeTreeData.fire(this.data[idx]);
         }
+    }
+
+
+
+    setNumberOfItem(num: number){
+        if (this.data.length == num){
+            return;
+        }
+
+        for(let i = this.data.length; i < num; i++){
+            this.data.push(
+                new Info("", "", vscode.TreeItemCollapsibleState.None, [])
+            )
+        }
+
+        for(let i = this.data.length; i > num; i--){
+            this.data.pop();
+        }
+
+        this._onDidChangeTreeData.fire(undefined);
     }
 }

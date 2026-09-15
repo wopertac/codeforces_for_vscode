@@ -38,8 +38,6 @@ export function registerCommands(secrets: vscode.SecretStorage){
         
         await selectContest(+contest);
         await secrets.store("cf_contest", contest);
-
-        vscode.window.showInformationMessage("Информация о контесте изменена");
     });
     
 }

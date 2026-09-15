@@ -72,23 +72,20 @@ async function fetchCodeforcesContest(handle: string, contestId: number) : Promi
 export async function monitorInfo(secrets: vscode.SecretStorage) {
     let handle = await secrets.get("cf_handle");
     if (!handle){
-        for(let i = 0; i < 3; i++){
-            UserDataProvider.updateItem(i, "missing handle");
-        }
+        UserDataProvider.setNumberOfItem(0);
         StatusDataProvider.setNumOfTrasks(0);
         return;
     }
+
     const userData = await fetchCodeforcesUser(handle);
     const userStatus = await fetchCodeforcesStatus(handle);
 
+    UserDataProvider.setNumberOfItem(3);
+
     if (userData){
-        UserDataProvider.updateItem(0, userData.handle);
-        UserDataProvider.updateItem(1, `${userData.rating}`);
-        UserDataProvider.updateItem(2, userData.rank);
-    }else{
-        UserDataProvider.updateItem(0, "wrong handle");
-        UserDataProvider.updateItem(1, "");
-        UserDataProvider.updateItem(2, "");
+        UserDataProvider.updateItem(0, "Handle", userData.handle);
+        UserDataProvider.updateItem(1, "Rating", `${userData.rating}`);
+        UserDataProvider.updateItem(2, "Rank", userData.rank);
     }
 
     if (userStatus){
@@ -98,18 +95,16 @@ export async function monitorInfo(secrets: vscode.SecretStorage) {
             StatusDataProvider.updateLabel(i, 0, `id : ${userStatus[i].id}`)
             StatusDataProvider.updateLabel(i, 1, `passed tests : ${userStatus[i].passedTestCount}`)
         }
-    }else{
-        StatusDataProvider.setNumOfTrasks(0);
-    }
-
-    ContestTreeProvider.setNumOfProblems(ContestProblemset.length + 1);
-    ContestTreeProvider.updateLablel(0, `${ContestId}`);
-
-    for(let i = 0; i < ContestProblemset.length ; i++){
-        ContestTreeProvider.updateProblem(i + 1, ContestId, ContestProblemset[ContestProblemset.length - i - 1].index, ContestProblemset[ContestProblemset.length - i - 1].name);
     }
 
     if (ContestId !== -1){
+        ContestTreeProvider.setNumOfProblems(ContestProblemset.length + 1);
+        ContestTreeProvider.updateLablel(0, `${ContestId}`);
+
+        for(let i = 0; i < ContestProblemset.length ; i++){
+            ContestTreeProvider.updateProblem(i + 1, ContestId, ContestProblemset[ContestProblemset.length - i - 1].index, ContestProblemset[ContestProblemset.length - i - 1].name);
+        }
+
         const contestStatus = await fetchCodeforcesContest(handle, ContestId);
 
         if (contestStatus){

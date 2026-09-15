@@ -1,7 +1,7 @@
 {
 	"name": "srpo3",
 	"displayName": "srpo3",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"engines": {
 		"vscode": "^1.80.0"
 	},
@@ -47,17 +47,41 @@
 		"commands": [
 			{
 				"command": "srpo3.loginCF",
-				"title": "CF : Авторизоваться (Логин/Пароль)"
+				"title": "Авторизоваться"
 			},
 			{
 				"command": "srpo3.logoutCF",
-				"title": "CF : Выйти из аккаунта"
+				"title": "Выйти из аккаунта"
 			},
 			{
 				"command": "srpo3.contestCF",
-				"title": "CF : Выбрать контест"
+				"title": "Выбрать контест"
 			}
-		]
+		],
+		"viewsWelcome": [
+			{
+				"view": "cf-user",
+				"contents": "[Авторизоваться](command:srpo3.loginCF)"
+			},
+			{
+				"view": "cf-contest",
+				"contents": "[Выбрать контест](command:srpo3.contestCF)"
+			}
+		],
+		"menus": {
+			"view/title": [
+				{
+					"command": "srpo3.logoutCF",
+					"when": "view == cf-user",
+					"group": "navigation"
+				},
+				{
+					"command": "srpo3.contestCF",
+					"when": "view == cf-contest",
+					"group": "navigation"
+				}
+			]
+		}
 	},
 	"description": "",
 	"keywords": [],

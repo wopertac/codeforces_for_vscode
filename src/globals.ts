@@ -1,3 +1,5 @@
+import * as vscode from 'vscode'
+
 import { User } from "./TreeProviders/UserTreeProvider";
 import { Status } from "./TreeProviders/StatusTreeProvider";
 import { Contest } from "./TreeProviders/ContestTreeProvider";
@@ -30,6 +32,8 @@ export async function selectContest(idx: number){
 
         }
     }
+
+    vscode.window.showInformationMessage("Информация о контесте изменена");
 }
 
 export interface CFRes<T> {

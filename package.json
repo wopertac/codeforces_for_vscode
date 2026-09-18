@@ -1,9 +1,9 @@
 {
-	"name": "codefroces_for_vscode",
+	"name": "codefroces-for-vscode",
 	"displayName": "Codeforces for vscode",
 	"version": "0.3.2",
 	"engines": {
-		"vscode": "^1.80.0"
+		"vscode": "^1.137.0"
 	},
 	"categories": [
 		"Other"
@@ -83,19 +83,20 @@
 			]
 		}
 	},
+	"repository": {
+    "type": "git",
+    "url": "https://github.com/wopertac/codeforces_for_vscode"
+	},
+	"license": "MIT",
 	"description": "",
 	"keywords": [],
 	"type": "commonjs",
 	"devDependencies": {
 		"@types/node": "^22.20.2",
 		"@types/vscode": "^1.137.0",
-		"puppeteer": "^25.10.0",
 		"typescript": "^7.0.2"
 	},
 	"dependencies": {
-		"axios": "^1.20.0",
-		"puppeteer-core": "^25.10.0",
-		"puppeteer-extra": "^3.3.6",
-		"puppeteer-extra-plugin-stealth": "^2.11.2"
+		"axios": "^1.20.0"
 	}
 }

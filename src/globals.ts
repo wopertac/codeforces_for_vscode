@@ -72,3 +72,10 @@ export interface CFProblemStatistic{
     index: string,
     solvedCount: number
 }
+
+export interface CFRatingChange{
+    contestId: number,
+    rank: number,
+    oldRating: number,
+    newRating: number
+}

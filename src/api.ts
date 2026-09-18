@@ -1,6 +1,6 @@
 import axios from 'axios'
 import * as vscode from "vscode"
-import { UserDataProvider, StatusDataProvider, ContestProblemset, ContestTreeProvider, ContestId } from './globals'
+import { UserDataProvider, StatusDataProvider, ContestProblemset, ContestTreeProvider, ContestId, CFRatingChange } from './globals'
 import { CFRes, CFStatus, CFUser, CFProblemsets } from './globals'
 
 export async function fetchCodeforcesProblems(): Promise<CFProblemsets | null> {
@@ -69,6 +69,23 @@ async function fetchCodeforcesContest(handle: string, contestId: number) : Promi
     }
 }
 
+async function fetchCodeforcesRatingChange(handle: string) : Promise<CFRatingChange[] | null>{
+    const url = `https://codeforces.com/api/user.rating?handle=${handle}`
+
+    try{
+        const res = await axios.get<CFRes<CFRatingChange[]>>(url);
+
+        if (res.data.status === "OK"){
+            return res.data.result;
+        }else{
+            return null;
+        }
+
+    }catch{
+        return null;
+    }
+}
+
 export async function monitorInfo(secrets: vscode.SecretStorage) {
     let handle = await secrets.get("cf_handle");
     if (!handle){
@@ -80,8 +97,27 @@ export async function monitorInfo(secrets: vscode.SecretStorage) {
 
     const userData = await fetchCodeforcesUser(handle);
     const userStatus = await fetchCodeforcesStatus(handle);
+    const userRatingChange = await fetchCodeforcesRatingChange(handle);
 
     UserDataProvider.setNumberOfItem(3);
+
+
+    if (userRatingChange){
+        let num = Math.min(userRatingChange.length, 5);
+
+        UserDataProvider.setNumOfChildren(1, num);
+        let changes = await UserDataProvider.getChildren((await UserDataProvider.getChildren())[1])
+
+
+        for(let i = 0; i < num; i++){
+            let change = userRatingChange[i].newRating - userRatingChange[i].oldRating;
+            let info = `${change}`
+            if (change > 0){
+                info = "+" + info;
+            }
+            changes[num - i - 1].updateInfo(`${userRatingChange[i].contestId}`, info);
+        }
+    }
 
     if (userData){
         UserDataProvider.updateItem(0, "Handle", userData.handle);

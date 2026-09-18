@@ -110,12 +110,12 @@ export async function monitorInfo(secrets: vscode.SecretStorage) {
 
 
         for(let i = 0; i < num; i++){
-            let change = userRatingChange[i].newRating - userRatingChange[i].oldRating;
+            let change = userRatingChange[userRatingChange.length - i - 1].newRating - userRatingChange[userRatingChange.length - i - 1].oldRating;
             let info = `${change}`
             if (change > 0){
                 info = "+" + info;
             }
-            changes[num - i - 1].updateInfo(`${userRatingChange[i].contestId}`, info);
+            changes[i].updateInfo(`${userRatingChange[userRatingChange.length - i - 1].contestId}`, info);
         }
     }
 
